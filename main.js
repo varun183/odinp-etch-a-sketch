@@ -1,31 +1,36 @@
 const gridSide = 600;
 let squareSide = 16;
+let color = 'black';
 
 
-const sizeSelectorBtn = document.querySelector('#sizeSelector');
+let sizeSelectorBtn = document.querySelector('#sizeSelector');
 sizeSelectorBtn.addEventListener('click', function(){
     let squareSide = getsquareSide();
+    removeGridCells();
     createGridCells(squareSide);
 })
+
+
+
+
+
+
 
 
 const sketchArea = document.querySelector('.board');
 sketchArea.style.width = sketchArea.style.height = `${gridSide}px`; 
 
-function setCellColor(){
-    this.style.backgroundColor = "black";
-}
 
  
 function createGridCells(squareSide){
 
     const numOfSquares = (squareSide*squareSide);
-    const widthOrHeight =  `${(gridSide/squareSide)-2.22}px`;
+    const widthAndHeight =  `${(gridSide/squareSide)}px`;
     for(let i =0;i<(numOfSquares);i++){
 
         const gridCell = document.createElement("div");
 
-        gridCell.style.width =  gridCell.style.height= widthOrHeight;
+        gridCell.style.width =  gridCell.style.height= widthAndHeight;
         gridCell.classList.add("cell");
 
         sketchArea.appendChild(gridCell);
@@ -36,6 +41,15 @@ function createGridCells(squareSide){
     }
 
 }
+
+
+
+function removeGridCells(){
+    while(sketchArea.firstChild){
+        sketchArea.removeChild(sketchArea.firstChild);
+    }
+}
+
 
 function getsquareSide(){
     let input = prompt("Enter the size of the sketch-area");
@@ -51,4 +65,60 @@ function getsquareSide(){
         return input;
     }
 }
+
+
+
+function randomColor(){
+    let red = Math.trunc((Math.random()*255+1));
+    let blue = Math.trunc((Math.random()*255+1));
+    let green = Math.trunc((Math.random()*255+1));
+
+    let color = `rgb(${red},${blue},${green})`
+    return color;
+
+
+}
+
+const randomColorbtn = document.querySelector('#randomColor');
+randomColorbtn.addEventListener("click",()=>{
+    color= "random";
+})
+
+
+function setCellColor(){
+
+   
+
+    const colorPicker = document.querySelector("#color-picker");
+    
+    colorPicker.addEventListener("change",()=>{
+        color = colorPicker.value;
+        
+    })
+
+    
+
+    
+
+   if(color=="random"){
+        this.style.backgroundColor = randomColor();
+    }else{
+        this.style.backgroundColor = color;
+
+    }
+   
+    
+    }
+
+
+    const resetColor = document.querySelector("#resetColor");
+
+    resetColor.addEventListener("click",()=>{
+        const girdCells = document.querySelectorAll(".cell");
+
+        girdCells.forEach(cell=>cell.style.backgroundColor = "white");
+    })
+
+
+
 
