@@ -13,7 +13,7 @@ body{
     align-items: center;
     justify-content: space-between;
     height: 800px;
-    margin: 70px auto;
+    margin: 50px auto;
 }
 .header{
     display: flex;
